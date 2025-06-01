@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Kim tuyến lung linh */
+        .glitter {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(255 255 255 / 0.8) 1px, transparent 2px),
+                radial-gradient(circle at 40% 50%, rgba(255 255 255 / 0.6) 1.5px, transparent 3px),
+                radial-gradient(circle at 70% 80%, rgba(255 255 255 / 0.7) 1.2px, transparent 2.5px),
+                radial-gradient(circle at 90% 30%, rgba(255 255 255 / 0.5) 1px, transparent 2px),
+                radial-gradient(circle at 25% 75%, rgba(255 255 255 / 0.65) 1.3px, transparent 2.5px);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: glitterMove 8s linear infinite;
+        }
+
+        @keyframes glitterMove {
+            0% {
+                background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+            }
+            100% {
+                background-position: 200px 200px, 200px 200px, 200px 200px, 200px 200px, 200px 200px;
+            }
+        }
+
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .falling-heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.6);
+            font-size: 12px;
+            animation: heartFall linear infinite;
+            top: -20px;
+        }
+
+        @keyframes heartFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        .title {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.2em;
+            background: linear-gradient(45deg, #ff6b9d, #c44569, #f8b500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        /* Happy Birthday Cards - Giống như các card khác nhưng to hơn */
+        .happy-birthday-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 107, 157, 0.8);
+            border-radius: 15px;
+            padding: 20px 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 107, 157, 0.4);
+            width: auto;
+            min-width: 400px;
+            max-width: 600px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 15;
+        }
+
+        .happy-birthday-text {
+            font-size: 28px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 
+                0 2px 5px rgba(0, 0, 0, 0.8),
+                0 0 10px rgba(255, 107, 157, 0.6);
+            font-weight: bold;
+            white-space: nowrap;
+             font-family: 'Comic Sans MS', cursive, sans-serif;
+            letter-spacing: 1px;
+            animation: colorChange 6s ease infinite;
+        }
+
+        /* Animation cho Happy Birthday - Di chuyển như các card khác 
+       .birthday-move-right {
+          animation: birthdayMoveRight 8s linear infinite;
+        }
+
+        @keyframes birthdayMoveRight {
+            0% {
+                transform: translateX(-600px) translateY(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(0px);
+                opacity: 0.8;
+            }
+        }
+
+        .birthday-move-left {
+            animation: birthdayMoveLeft 8s linear infinite;
+        }
+
+        @keyframes birthdayMoveLeft {
+            0% {
+                transform: translateX(100vw) translateY(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-600px) translateY(0px);
+                opacity: 0.8;
+            }
+        }
+
+        .birthday-move-down {
+            animation: birthdayMoveDown 8s linear infinite;
+        }
+
+        @keyframes birthdayMoveDown {
+            0% {
+                transform: translateY(-100px) translateX(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0.8;
+            }
+        }
+*/
+        .wishes-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+        }
+
+        .wish-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 157, 0.5);
+            border-radius: 12px;
+            padding: 8px 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: auto;
+            min-width: 200px;
+            max-width: 300px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wish-text {
+            font-size: 12px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+            font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            animation: colorChange 6s ease infinite;
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #fff;
+            }
+            50% {
+                color: #ff69b4;
+            }
+            100% {
+                color: #fff;
+            }
+        }
+        
+
+        /* Animations */
+        .move-down {
+            animation: moveDown 8s linear infinite;
+        }
+
+        @keyframes moveDown {
+            0% {
+                transform: translateY(-50px) translateX(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0.7;
+            }
+        }
+
+        .move-right {
+            animation: moveRight 10s linear infinite;
+        }
+
+        @keyframes moveRight {
+            0% {
+                transform: translateX(-300px) translateY(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(0px);
+                opacity: 0.7;
+            }
+        }
+
+        .move-left {
+            animation: moveLeft 10s linear infinite;
+        }
+
+        @keyframes moveLeft {
+            0% {
+                transform: translateX(100vw) translateY(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-300px) translateY(0px);
+                opacity: 0.7;
+            }
+        }
+
+        .move-diagonal-1 {
+            animation: moveDiagonal1 5s linear infinite;
+        }
+
+        @keyframes moveDiagonal1 {
+            0% {
+                transform: translateX(-200px) translateY(-50px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh);
+                opacity: 0.7;
+            }
+        }
+
+        .move-diagonal-2 {
+            animation: moveDiagonal2 5s linear infinite;
+        }
+
+        @keyframes moveDiagonal2 {
+            0% {
+                transform: translateX(100vw) translateY(-50px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-200px) translateY(100vh);
+                opacity: 0.7;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8em;
+                top: 15px;
+            }
+            
+            .wish-card {
+                min-width: 150px;
+                max-width: 250px;
+                height: 30px;
+                padding: 6px 12px;
+            }
+            
+            .wish-text {
+                font-size: 11px;
+            }
+            
+            .happy-birthday-card {
+                min-width: 300px;
+                max-width: 450px;
+                height: 70px;
+                padding: 15px 25px;
+            }
+            
+            .happy-birthday-text {
+                font-size: 22px;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 480px) 
+        {
+            .title {
+                font-size: 1.5em;
+                top: 10px;
+            }
+            
+            .wish-card {
+                min-width: 120px;
+                max-width: 200px;
+                height: 28px;
+                padding: 5px 10px;
+            
+            
+            .wish-text {
+                font-size: 10px;
+            }
+            
+            .happy-birthday-card {
+                min-width: 250px;
+                max-width: 350px;
+                height: 60px;
+                padding: 12px 20px;
+            }
+            
+            .happy-birthday-text {
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Background kim tuyến -->
+    <div class="glitter"></div>
+
+    <div class="hearts-bg" id="heartsBackground"></div>
+
+    
+    
+    <div class="wishes-container" id="wishesContainer">
+        <!-- Wishes will be generated by JavaScript -->
+    </div>
+
+    <script>
+        const wishes = [
+            "Hi bé đẹp♥️",
+            "Có em ở đó hem taaaaa♥️",
+            "Anh thương em nhiều lắmmmm😍🤍",
+            "Hy vọng chúc mình sẽ có cái kết đẹp 💒🤍",
+            "Em là nhất️🏅 ",
+            "Mong mọi điều tốt lành đến với em♥️",
+            "chúc em luôn yêu đời vui vẻ nha💪",
+            "Nhiều lúc làm em buồn☺️",
+            "Anh không có cố ý như vậy đâu",
+            "Nhiều lúc anh bị ngớ ngẩn♥️",
+            "Nhưng anh vẫn thương bé đẹp♥️",
+            "gán cứ làm chồng iu nhen cưng",
+            "♥️Mãi yêu♥️",
+            "Thương thương nhiều lắm😍",
+            "♥️♥️♥️♥️♥️♥️♥️",
+            "♥️💑",
+            "Anh làm em buồn nhiều lắm đúng hông😢",
+            " Hai đứa cùng nhau cố gắng lên nha😍",
+            "🌹💑🌹💑🌹",
+            "♥️I LOVE YOU😍",
+            "FOREVER😍",
+            "♥️Mãi yêu cô bé nhỏ♥️",
+
+
+        ];
+
+        // Happy Birthday messages
+        const happyBirthdayMessages = [
+        ];
+
+        const container = document.getElementById('wishesContainer');
+
+        function randomBetween(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Các kiểu animation khác nhau
+        const animationClasses = [
+            'move-down',
+            'move-right', 
+            'move-left',
+            'move-diagonal-1',
+            'move-diagonal-2'
+        ];
+
+        // Tạo Happy Birthday cards với chuyển động giống các card khác
+        let birthdayIndex = 0;
+        const birthdayAnimations = ['birthday-move-right', 'birthday-move-left', 'birthday-move-down'];
+        
+        function createBirthdayCard() {
+            const card = document.createElement('div');
+            card.classList.add('happy-birthday-card');
+            
+            const animClass = birthdayAnimations[Math.floor(Math.random() * birthdayAnimations.length)];
+            card.classList.add(animClass);
+            
+            // Set vị trí ban đầu dựa trên loại animation
+            switch(animClass) {
+                case 'birthday-move-right':
+                    card.style.top = randomBetween(100, window.innerHeight - 150) + 'px';
+                    card.style.left = '-600px';
+                    break;
+                case 'birthday-move-left':
+                    card.style.top = randomBetween(100, window.innerHeight - 150) + 'px';
+                    card.style.left = window.innerWidth + 'px';
+                    break;
+                case 'birthday-move-down':
+                    card.style.left = randomBetween(0, window.innerWidth - 600) + 'px';
+                    card.style.top = '-100px';
+                    break;
+            }
+
+            const text = document.createElement('div');
+            text.className = 'happy-birthday-text';
+            text.textContent = happyBirthdayMessages[birthdayIndex];
+            card.appendChild(text);
+
+            container.appendChild(card);
+
+            // Xóa card sau khi animation kết thúc
+            setTimeout(() => {
+                if (card.parentNode) {
+                    card.parentNode.removeChild(card);
+                }
+            }, 8000);
+
+            // Chuyển sang message tiếp theo
+            //birthdayIndex = (birthdayIndex + 1) % happyBirthdayMessages.length;
+        }
+
+        // Tạo Happy Birthday card đầu tiên ngay lập tức
+        createBirthdayCard();
+
+        // Sau đó tạo card mới mỗi 5 giây
+        setInterval(createBirthdayCard, 3000);
+
+        // Create regular wish cards
+        wishes.forEach((wish, i) => {
+            setTimeout(() => {
+                const card = document.createElement('div');
+                card.classList.add('wish-card');
+
+                const animClass = animationClasses[i % animationClasses.length];
+                card.classList.add(animClass);
+
+                // Set initial position based on animation type
+                switch(animClass) {
+                    case 'move-down':
+                        card.style.left = randomBetween(0, window.innerWidth - 300) + 'px';
+                        card.style.top = '-40px';
+                        card.style.animationDuration = randomBetween(6, 12) + 's';
+                        break;
+                    case 'move-right':
+                        card.style.top = randomBetween(80, window.innerHeight - 80) + 'px';
+                        card.style.left = '-300px';
+                        card.style.animationDuration = randomBetween(8, 14) + 's';
+                        break;
+                    case 'move-left':
+                        card.style.top = randomBetween(80, window.innerHeight - 80) + 'px';
+                        card.style.left = window.innerWidth + 'px';
+                        card.style.animationDuration = randomBetween(8, 14) + 's';
+                        break;
+                    case 'move-diagonal-1':
+                        card.style.left = '-200px';
+                        card.style.top = '-50px';
+                        card.style.animationDuration = randomBetween(10, 15) + 's';
+                        break;
+                    case 'move-diagonal-2':
+                        card.style.left = window.innerWidth + 'px';
+                        card.style.top = '-50px';
+                        card.style.animationDuration = randomBetween(10, 15) + 's';
+                        break;
+                }
+
+                const text = document.createElement('div');
+                text.className = 'wish-text';
+                text.textContent = wish;
+                card.appendChild(text);
+
+                container.appendChild(card);
+            }, i * 200); // Stagger the creation
+        });
+
+        // Create falling hearts background
+        const heartsContainer = document.getElementById('heartsBackground');
+        const heartCount = 60;
+
+        for(let i = 0; i < heartCount; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.textContent = '💖';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = (5 + Math.random() * 7) + 's';
+            heart.style.fontSize = (8 + Math.random() * 12) + 'px';
+            heart.style.opacity = 0.3 + Math.random() * 0.4;
+            heart.style.animationDelay = (Math.random() * 10) + 's';
+            heartsContainer.appendChild(heart);
+        }
+
+        // Continuously add new wishes
+        setInterval(() => {
+            const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+            const card = document.createElement('div');
+            card.classList.add('wish-card');
+            
+            const animClass = animationClasses[Math.floor(Math.random() * animationClasses.length)];
+            card.classList.add(animClass);
+            
+            // Random positioning
+            switch(animClass) {
+                case 'move-down':
+                    card.style.left = randomBetween(0, window.innerWidth - 300) + 'px';
+                    card.style.top = '-40px';
+                    break;
+                case 'move-right':
+                    card.style.top = randomBetween(80, window.innerHeight - 80) + 'px';
+                    card.style.left = '-300px';
+                    break;
+                case 'move-left':
+                    card.style.top = randomBetween(80, window.innerHeight - 80) + 'px';
+                    card.style.left = window.innerWidth + 'px';
+                    break;
+            }
+            
+            card.style.animationDuration = randomBetween(6, 12) + 's';
+            
+            const text = document.createElement('div');
+            text.className = 'wish-text';
+            text.textContent = randomWish;
+            card.appendChild(text);
+            
+            container.appendChild(card);
+            
+            // Remove card after animation
+            setTimeout(() => {
+                if (card.parentNode) {
+                    card.parentNode.removeChild(card);
+                }
+            }, 15000);
+        }, 3000);
+    
+    </script>
+</body>
+</html>
